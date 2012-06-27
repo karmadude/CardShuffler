@@ -17,16 +17,58 @@ section, header {
   overflow: auto;
 }
 
+.card-deck {
+  -webkit-perspective: 0;
+}
+
+.playingCard:hover {
+  -webkit-transform: scale(0.5, 0.5);
+}
+
+.playingCard.flip .front {
+  z-index: 200;
+  -webkit-transform: rotateY(180deg);
+}
+
+.playingCard.flip .back {
+  z-index: 300;
+  -webkit-transform: rotateY(0deg);
+}
+
+.side {-webkit-backface-visibility: hidden;}
+
 .controls {
   margin: 0 auto 12px auto;
 }
 
 .playingCard {
   border-radius: 5px;
+  background: none;
+  width: 76px;
+  height: 100px;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: all .2s ease-in-out;
 }
 
 .playingCard .front {
   border-radius: 5px;
+  z-index: 200;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: .4s ease-in-out;
+  -webkit-transform: rotateY(0deg);
+}
+
+.playingCard .back {
+  border-radius: 5px;
+  background-color: #d9d2bf;
+  color: #000;
+  position: absolute;
+  width: 76px;
+  height: 100px;
+  z-index: 100;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: .4s ease-in-out;
+  -webkit-transform: rotateY(-180deg);
 }
 
 .control {
