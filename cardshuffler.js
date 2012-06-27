@@ -56,25 +56,50 @@ var CardShuffler = function() {
   };
 };
 
+var cardFlip = function() {
+  var delay = 200;
+  $('.playingCard').each(function(index, value){
+    delay += 10;
+    setTimeout(function(){ $(value).toggleClass('flip'); }, delay);
+  });
+};
+
 
 $(document).ready(function() {
-    var cardDeck = $(".card-deck").playingCards({
-      'startShuffled': false,
-      'jokers': 0
+  var cardFlip = function() {
+    var delay = 200;
+    $('.playingCard').each(function(index, value){
+      delay += 10;
+      setTimeout(function(){ $(value).toggleClass('flip'); }, delay);
     });
-    cardDeck.spread(); // show it
+  };
 
-    $('.reset').on('click', function() {
+  var cardDeck = $(".card-deck").playingCards({
+    'startShuffled': false,
+    'jokers': 0
+  });
+  cardDeck.spread(); // show it
+  cardFlip();
+
+  $('.reset').on('click', function() {
+    cardFlip();
+    setTimeout(function(){
       cardDeck.init();
       cardDeck.spread();
-      return false;
-    });
+      cardFlip();
+    }, 1000);
+    return false;
+  });
 
-    $('.shuffle').on('click', function() {
+  $('.shuffle').on('click', function() {
+    cardFlip();
+    setTimeout(function(){
       var cs = new CardShuffler();
       cardDeck.cards = cs.shuffle(cardDeck.cards, 5);
       cardDeck.spread();
-      return false;
+      cardFlip();
+    }, 1000);
+    return false;
   });
 });
 
