@@ -6,14 +6,14 @@
 
 var CardShuffler = function() {
   return {
-    riffleShuffle: function(deck) {
+    hinduShuffle: function(deck) {
       var pos = Math.floor(Math.random() * deck.length);
       var len = Math.floor(Math.random() * (deck.length - pos));
       var shuffledDeck = deck.splice(pos, len);
       return shuffledDeck.concat(deck);
     },
 
-    hinduShuffle: function(deck) {
+    riffleShuffle: function(deck) {
       var shuffledDeck = [];
       var mid = Math.floor((deck.length-1)/2);
 
