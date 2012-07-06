@@ -6,14 +6,14 @@
 
 var CardShuffler = function() {
   return {
-    riffleShuffle: function(deck) {
+    hinduShuffle: function(deck) {
       var pos = Math.floor(Math.random() * deck.length);
       var len = Math.floor(Math.random() * (deck.length - pos));
       var shuffledDeck = deck.splice(pos, len);
       return shuffledDeck.concat(deck);
     },
 
-    hinduShuffle: function(deck) {
+    riffleShuffle: function(deck) {
       var shuffledDeck = [];
       var mid = Math.floor((deck.length-1)/2);
 
@@ -57,10 +57,8 @@ var CardShuffler = function() {
 };
 
 var cardFlip = function() {
-  var delay = 200;
-  $('.playingCard').each(function(index, value){
-    delay += 10;
-    setTimeout(function(){ $(value).toggleClass('flip'); }, delay);
+  _.each($('.playingCard'), function(card, index) {
+    _.delay(function() { $(card).toggleClass('flip');}, 200 + 10 * index);
   });
 };
 
@@ -83,6 +81,14 @@ $(document).ready(function() {
 
   $('.reset').on('click', function() {
     cardFlip();
+    // _.delay(function() {
+    //   _.each($('.playingCard'), function(card, index) {
+    //     var t = -$(card).position().top;
+    //     var l = -$(card).position().left;
+    //     var p = [l+'px',t+'px',0].join(',');
+    //     _.delay(function(){ $(card).css({'-webkit-transform': 'translate3d(' + p + ')'}); }, 200+10*index);
+    //   });
+    // }, 1000);
     setTimeout(function(){
       cardDeck.init();
       cardDeck.spread();
