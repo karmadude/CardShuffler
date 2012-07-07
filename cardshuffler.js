@@ -57,23 +57,13 @@ var CardShuffler = function() {
 };
 
 var cardFlip = function() {
-  var delay = 200;
-  $('.playingCard').each(function(index, value){
-    delay += 10;
-    setTimeout(function(){ $(value).toggleClass('flip'); }, delay);
+  _.each($('.playingCard'), function(card, index) {
+    _.delay(function() { $(card).toggleClass('flip');}, 200 + 10 * index);
   });
 };
 
 
 $(document).ready(function() {
-  var cardFlip = function() {
-    var delay = 200;
-    $('.playingCard').each(function(index, value){
-      delay += 10;
-      setTimeout(function(){ $(value).toggleClass('flip'); }, delay);
-    });
-  };
-
   var cardDeck = $(".card-deck").playingCards({
     'startShuffled': false,
     'jokers': 0
@@ -83,7 +73,7 @@ $(document).ready(function() {
 
   $('.reset').on('click', function() {
     cardFlip();
-    setTimeout(function(){
+    _.delay(function(){
       cardDeck.init();
       cardDeck.spread();
       cardFlip();
@@ -93,7 +83,7 @@ $(document).ready(function() {
 
   $('.shuffle').on('click', function() {
     cardFlip();
-    setTimeout(function(){
+    _.delay(function(){
       var cs = new CardShuffler();
       cardDeck.cards = cs.shuffle(cardDeck.cards, 5);
       cardDeck.spread();
