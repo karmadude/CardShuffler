@@ -62,32 +62,111 @@ var cardFlip = function() {
   });
 };
 
+var matrixDiagram = function() {
+  var width = 103,
+      height = 103;
+
+  var n = 52,
+      m = 0,
+      zero = d3.range(n).map(function() { return 0; });
+
+  var x = d3.scale.ordinal()
+        .domain(d3.range(n))
+        .rangeBands([0, width]);
+
+  var z = d3.scale.quantile()
+        .domain([0, 1, 2])
+        .range(["#eee", "#E41A1C", "#222"]);
+
+  var svg, row;
+
+  var diagram = function() {};
+
+  diagram.init = function() {
+    diagram.reset();
+
+    svg = d3.select(".matrix-diagram").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g");
+
+    svg.append("rect")
+        .attr("class", "diagram")
+        .attr("width", width)
+        .attr("height", height);
+
+    row = svg.selectAll(".row")
+        .data(matrix)
+      .enter().append("g")
+        .attr("class", "row")
+        .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; });
+
+    row.selectAll(".cell")
+        .data(function(d) { return d; })
+      .enter().append("rect")
+        .attr("class", "cell")
+        .attr("x", function(d, i) { return x(i); })
+        .attr("width", x.rangeBand())
+        .attr("height", x.rangeBand());
+
+    return diagram;
+  };
+
+  diagram.reset = function() {
+    matrix = zero.map(function() { return zero.slice(); });
+    return diagram;
+  };
+
+  diagram.updateMatrix = function(cards) {
+    m++;
+    cards.forEach(function(card, j) {
+      matrix[card.index][j] = card.suit === "D" || card.suit === "H" ? 1 : 2;
+    });
+    return diagram;
+  };
+
+  diagram.draw = function() {
+    row.selectAll(".cell")
+      .data(function(d, i) { return matrix[i]; })
+      .style("fill", z);
+    return diagram;
+  };
+
+  return diagram;
+};
+
 
 $(document).ready(function() {
+  var diagram = matrixDiagram().init();
   var cardDeck = $(".card-deck").playingCards({
     'startShuffled': false,
     'jokers': 0
   });
-  cardDeck.spread(); // show it
-  cardFlip();
+  cardDeck.spread(true); // show it
+  //cardFlip();
+  diagram.reset().updateMatrix(cardDeck.cards).draw();
 
   $('.reset').on('click', function() {
     cardFlip();
+    _.delay(function(){$('.playingCard').css({'top': 0, 'left': 0});}, 1000);
     _.delay(function(){
       cardDeck.init();
-      cardDeck.spread();
-      cardFlip();
-    }, 1000);
+      cardDeck.spread(true);
+      diagram.reset().updateMatrix(cardDeck.cards).draw();
+      //cardFlip();
+    }, 2000);
     return false;
   });
 
   $('.shuffle').on('click', function() {
     cardFlip();
+    _.delay(function(){$('.playingCard').css({'top': 0, 'left': 0});}, 1000);
     _.delay(function(){
       var cs = new CardShuffler();
       cardDeck.cards = cs.shuffle(cardDeck.cards, 5);
       cardDeck.spread();
-      cardFlip();
+      //cardFlip();
+      diagram.reset().updateMatrix(cardDeck.cards).draw();
     }, 1000);
     return false;
   });

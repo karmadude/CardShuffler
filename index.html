@@ -10,8 +10,9 @@
 
     <link href='http://fonts.googleapis.com/css?family=Iceland' rel='stylesheet' type='text/css'>
 
-    <script src="lib/jquery-1.7.2.min.js"></script>
-    <script src="lib/underscore-min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.2.1/lodash.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="lib/playingCards.js"></script>
     <script src="lib/playingCards.ui.js"></script>
     <script src="cardshuffler.js"></script>
@@ -21,13 +22,18 @@
 
   <header>
     <h1>Card Shuffler</h1>
+    <div class="matrix-diagram"></div>
   </header>
 
   <section class="controls">
     <a href="" class="reset control">New Deck</a>&nbsp;&nbsp;<a href="" class="shuffle control">Shuffle</a>
   </section>
 
-  <section class="card-deck"></section>
+  <section class="card-deck clearfix"></section>
+
+  <footer>
+    <p>Matrix diagram code from <a href="http://bost.ocks.org/mike/shuffle/compare.html">Will it shuffle?</a> by Mike Bostock</p>
+  </footer>
 
 </body>
 </html>

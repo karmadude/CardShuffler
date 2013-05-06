@@ -12,14 +12,27 @@ h1 {
 }
 
 section, header {
+  position: relative;
   width: 860px;
   margin: 0 auto;
   overflow: auto;
 }
 
+.matrix-diagram {
+  position: absolute;
+  right: 0;
+  top: 12px;
+}
+
+.diagram {
+  background: #fff;
+}
+
 .card-deck {
+  position: relative;
   font-family: Georgia;
   width: 1040px;
+  height: 350px;
   overflow: visible;
   -webkit-perspective: 0;
   padding: 10px 0 100px 0;
@@ -58,17 +71,20 @@ section, header {
 }
 
 .playingCard {
+  position: absolute;
+  top: 0;
+  left: 0;
   border: none;
   border-radius: 5px;
-  margin: 0 4px 4px 0;
+  /*margin: 0 4px 4px 0;*/
   background: none;
   width: 76px;
   height: 100px;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 
 .playingCard .front {
@@ -76,9 +92,9 @@ section, header {
   z-index: 200;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: .4s ease-in-out;
-  -moz-transition: .4s ease-in-out;
-  transition: .4s ease-in-out;
+  -webkit-transition: .6s ease-in-out;
+  -moz-transition: .6s ease-in-out;
+  transition: .6s ease-in-out;
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   transform: rotateY(0deg);
@@ -94,9 +110,9 @@ section, header {
   z-index: 100;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: .4s ease-in-out;
-  -moz-transition: .4s ease-in-out;
-  transition: .4s ease-in-out;
+  -webkit-transition: .6s ease-in-out;
+  -moz-transition: .6s ease-in-out;
+  transition: .6s ease-in-out;
   -webkit-transform: rotateY(-180deg);
   -moz-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
@@ -134,4 +150,26 @@ section, header {
 .control:active {
   position:relative;
   top:1px;
+}
+
+footer {
+  clear: both;
+  width: 860px;
+  margin: 0 auto;
+  color: #ccc;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
 }
